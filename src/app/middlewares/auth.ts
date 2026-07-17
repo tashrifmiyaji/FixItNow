@@ -1,16 +1,23 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 
+import prisma from "../lib/prisma";
 import AppError from "../errors/AppError";
 import dotEnv from "../config/dotEnv";
 import { jwtHelpers } from "../utils/jwt";
 
-import { UserRole, UserStatus } from "../../../generated/prisma/enums";
-import prisma from "../lib/prisma";
+import {
+	UserRole,
+	UserStatus,
+} from "../../../generated/prisma/enums";
 
 const auth =
 	(...requiredRoles: UserRole[]) =>
-	async (req: Request, res: Response, next: NextFunction) => {
+	async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	) => {
 		try {
 			const authorization = req.headers.authorization;
 
@@ -60,10 +67,13 @@ const auth =
 				);
 			}
 
-			if (requiredRoles.length && !requiredRoles.includes(user.role)) {
+			if (
+				requiredRoles.length > 0 &&
+				!requiredRoles.includes(user.role)
+			) {
 				throw new AppError(
 					httpStatus.FORBIDDEN,
-					"You are not authorized.",
+					"You are not authorized to access this resource.",
 				);
 			}
 

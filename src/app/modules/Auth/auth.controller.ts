@@ -6,7 +6,6 @@ import sendResponse from "../../utils/sendResponse";
 import dotEnv from "../../config/dotEnv";
 
 import { AuthService } from "./auth.service";
-import { IJwtPayload } from "../../interfaces/jwt.interface";
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
 	const result = await AuthService.registerUser(req.body);
@@ -46,15 +45,13 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
 		success: true,
-		message: "Access token retrieved successfully.",
+		message: "Access token generated successfully.",
 		data: result,
 	});
 });
 
 const getMe = catchAsync(async (req: Request, res: Response) => {
-	const user = req.user as IJwtPayload;
-
-	const result = await AuthService.getMe(user.userId);
+	const result = await AuthService.getMe(req.user!.userId);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,

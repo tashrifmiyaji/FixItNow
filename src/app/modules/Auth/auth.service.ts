@@ -5,8 +5,11 @@ import prisma from "../../lib/prisma";
 import dotEnv from "../../config/dotEnv";
 import AppError from "../../errors/AppError";
 import { jwtHelpers } from "../../utils/jwt";
+
 import { UserStatus } from "../../../../generated/prisma/enums";
+
 import { ILoginUser, IRegisterUser } from "./auth.interface";
+import { IJwtPayload } from "../../interfaces/jwt.interface";
 
 const registerUser = async (payload: IRegisterUser) => {
 	const isUserExists = await prisma.user.findUnique({
@@ -43,6 +46,7 @@ const registerUser = async (payload: IRegisterUser) => {
 			role: true,
 			status: true,
 			createdAt: true,
+			updatedAt: true,
 		},
 	});
 
@@ -50,117 +54,126 @@ const registerUser = async (payload: IRegisterUser) => {
 };
 
 const loginUser = async (payload: ILoginUser) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: payload.email,
-    },
-    select: {
-      id: true,
-      password: true,
-      role: true,
-      status: true,
-    },
-  });
+	const user = await prisma.user.findUnique({
+		where: {
+			email: payload.email,
+		},
+		select: {
+			id: true,
+			password: true,
+			role: true,
+			status: true,
+		},
+	});
 
-  if (!user) {
-    throw new AppError(
-      httpStatus.NOT_FOUND,
-      "User not found."
-    );
-  }
+	if (!user) {
+		throw new AppError(
+			httpStatus.UNAUTHORIZED,
+			"Invalid email or password.",
+		);
+	}
 
-  if (user.status === UserStatus.BANNED) {
-    throw new AppError(
-      httpStatus.FORBIDDEN,
-      "This user has been banned."
-    );
-  }
+	if (user.status === UserStatus.BANNED) {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"This user has been banned.",
+		);
+	}
 
-  const isPasswordMatched = await bcrypt.compare(
-    payload.password,
-    user.password
-  );
+	const isPasswordMatched = await bcrypt.compare(
+		payload.password,
+		user.password,
+	);
 
-  if (!isPasswordMatched) {
-    throw new AppError(
-      httpStatus.UNAUTHORIZED,
-      "Invalid email or password."
-    );
-  }
+	if (!isPasswordMatched) {
+		throw new AppError(
+			httpStatus.UNAUTHORIZED,
+			"Invalid email or password.",
+		);
+	}
 
-  const jwtPayload = {
-    userId: user.id,
-    role: user.role,
-  };
+	const jwtPayload: Pick<IJwtPayload, "userId" | "role"> = {
+		userId: user.id,
+		role: user.role,
+	};
 
-  const accessToken = jwtHelpers.createToken(
-    jwtPayload,
-    dotEnv.jwt_access_secret,
-    dotEnv.jwt_access_expires_in
-  );
+	const accessToken = jwtHelpers.createToken(
+		jwtPayload,
+		dotEnv.jwt_access_secret,
+		dotEnv.jwt_access_expires_in,
+	);
 
-  const refreshToken = jwtHelpers.createToken(
-    jwtPayload,
-    dotEnv.jwt_refresh_secret,
-    dotEnv.jwt_refresh_expires_in
-  );
+	const refreshToken = jwtHelpers.createToken(
+		jwtPayload,
+		dotEnv.jwt_refresh_secret,
+		dotEnv.jwt_refresh_expires_in,
+	);
 
-  return {
-    accessToken,
-    refreshToken,
-  };
+	return {
+		accessToken,
+		refreshToken,
+	};
 };
 
 const refreshToken = async (token: string) => {
+	if (!token) {
+		throw new AppError(
+			httpStatus.UNAUTHORIZED,
+			"Unauthorized access.",
+		);
+	}
+
+	let decodedToken: IJwtPayload;
+
 	try {
-		const decodedToken = jwtHelpers.verifyToken(
+		decodedToken = jwtHelpers.verifyToken(
 			token,
 			dotEnv.jwt_refresh_secret,
 		);
-
-		const user = await prisma.user.findUnique({
-			where: {
-				id: decodedToken.userId,
-			},
-			select: {
-				id: true,
-				role: true,
-				status: true,
-			},
-		});
-
-		if (!user) {
-			throw new AppError(
-				httpStatus.UNAUTHORIZED,
-				"Unauthorized access.",
-			);
-		}
-
-		if (user.status === UserStatus.BANNED) {
-			throw new AppError(
-				httpStatus.FORBIDDEN,
-				"This user has been banned.",
-			);
-		}
-
-		const accessToken = jwtHelpers.createToken(
-			{
-				userId: user.id,
-				role: user.role,
-			},
-			dotEnv.jwt_access_secret,
-			dotEnv.jwt_access_expires_in,
-		);
-
-		return {
-			accessToken,
-		};
 	} catch {
 		throw new AppError(
 			httpStatus.UNAUTHORIZED,
 			"Invalid or expired refresh token.",
 		);
 	}
+
+	const user = await prisma.user.findUnique({
+		where: {
+			id: decodedToken.userId,
+		},
+		select: {
+			id: true,
+			role: true,
+			status: true,
+		},
+	});
+
+	if (!user) {
+		throw new AppError(
+			httpStatus.UNAUTHORIZED,
+			"Unauthorized access.",
+		);
+	}
+
+	if (user.status === UserStatus.BANNED) {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"This user has been banned.",
+		);
+	}
+
+	const accessToken = jwtHelpers.createToken(
+		{
+			userId: user.id,
+			role: user.role,
+		},
+		dotEnv.jwt_access_secret,
+		dotEnv.jwt_access_expires_in,
+	);
+
+	return {
+		accessToken,
+	};
 };
 
 const getMe = async (userId: string) => {
