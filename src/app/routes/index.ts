@@ -7,6 +7,7 @@ import serviceRoutes from "../modules/Service/service.route";
 import technicianRoutes from "../modules/Technician/technician.route";
 import bookingRoutes from "../modules/Booking/booking.route";
 import adminRoutes from "../modules/Admin/admin.route";
+import reviewRoutes from "../modules/Review/review.route";
 
 const routers = Router();
 
@@ -15,6 +16,8 @@ routers.use("/users", userRoutes);
 routers.use("/category", categoryRoutes);
 routers.use("/service", serviceRoutes);
 routers.use("/technician", technicianRoutes);
+routers.use("/booking", bookingRoutes);
 routers.use("/admin", adminRoutes);
+routers.use("/review", reviewRoutes);
 
 export default routers;
