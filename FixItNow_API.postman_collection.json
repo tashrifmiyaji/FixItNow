@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "060d977d-24e5-43e6-ba4e-bdd0770f173a",
-    "name": "FixItNow API",
-    "description": "Postman collection for FixItNow backend API.",
+    "name": "FixItNow API - Direct URLs",
+    "description": "FixItNow Backend API with direct URLs (no variables needed)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "31125494"
   },
@@ -25,14 +25,11 @@
               "raw": "{\n  \"name\": \"mr.xyx\",\n  \"email\": \"mrxyx@gmail.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"01712345678\",\n  \"role\": \"ADMIN\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "register"
-              ]
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -49,17 +46,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"tashrif.admin@gmail.com\",\n  \"password\": \"Password123!\"\n}"
+              "raw": "{\n  \"email\": \"admin@fixitnow.com\",\n  \"password\": \"Password123!\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
             }
           },
           "response": []
@@ -75,14 +69,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/refresh-token",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "refresh-token"
-              ]
+              "raw": "http://localhost:5000/api/auth/refresh-token",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "refresh-token"]
             }
           },
           "response": []
@@ -98,14 +89,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/auth/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "me"
-              ]
+              "raw": "http://localhost:5000/api/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "me"]
             }
           },
           "response": []
@@ -117,9 +105,6 @@
       "item": [
         {
           "name": "Get My Profile",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [
@@ -128,24 +113,12 @@
                 "value": "Bearer {{accessToken}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
+              "raw": "http://localhost:5000/api/users/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "users", "me"]
             }
           },
           "response": []
@@ -166,26 +139,20 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Tashrif Miaji as customer\",\n  \"phone\": \"01712345678\"\n}"
+              "raw": "{\n  \"name\": \"Tashrif Miaji\",\n  \"phone\": \"01712345678\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
+              "raw": "http://localhost:5000/api/users/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "users", "me"]
             }
           },
           "response": []
         },
         {
           "name": "Get All Users (Admin)",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
           "request": {
             "method": "GET",
             "header": [
@@ -194,23 +161,12 @@
                 "value": "Bearer {{accessToken}}"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "{{baseUrl}}/users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users"
-              ]
+              "raw": "http://localhost:5000/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "users"]
             }
           },
           "response": []
@@ -226,31 +182,26 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/category",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "category"
-              ]
+              "raw": "http://localhost:5000/api/category",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "category"]
             }
           },
           "response": []
         },
         {
-          "name": "Get Category by ID",
+          "name": "Get Category by ID (Plumbing)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/category/{{categoryId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "category",
-                "{{categoryId}}"
-              ]
+              "raw": "http://localhost:5000/api/category/b1ad824d-674c-43ff-a15f-ed322178f166",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "category", "b1ad824d-674c-43ff-a15f-ed322178f166"]
             }
           },
           "response": []
@@ -274,13 +225,11 @@
               "raw": "{\n  \"name\": \"Plumbing\",\n  \"description\": \"All plumbing and pipe repair services\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/category",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "category"
-              ]
+              "raw": "http://localhost:5000/api/category",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "category"]
             }
           },
           "response": []
@@ -304,14 +253,11 @@
               "raw": "{\n  \"name\": \"Electrical\",\n  \"description\": \"Electrical repair and wiring services\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/category/{{categoryId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "category",
-                "{{categoryId}}"
-              ]
+              "raw": "http://localhost:5000/api/category/b1ad824d-674c-43ff-a15f-ed322178f166",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "category", "b1ad824d-674c-43ff-a15f-ed322178f166"]
             }
           },
           "response": []
@@ -327,14 +273,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/category/{{categoryId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "category",
-                "{{categoryId}}"
-              ]
+              "raw": "http://localhost:5000/api/category/b1ad824d-674c-43ff-a15f-ed322178f166",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "category", "b1ad824d-674c-43ff-a15f-ed322178f166"]
             }
           },
           "response": []
@@ -350,31 +293,26 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/service",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "service"
-              ]
+              "raw": "http://localhost:5000/api/service",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "service"]
             }
           },
           "response": []
         },
         {
-          "name": "Get Service by ID",
+          "name": "Get Service by ID (Pipe Repair)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/service/{{serviceId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "service",
-                "{{serviceId}}"
-              ]
+              "raw": "http://localhost:5000/api/service/1df9af53-70c3-4685-97d7-eb2cc66a142c",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "service", "1df9af53-70c3-4685-97d7-eb2cc66a142c"]
             }
           },
           "response": []
@@ -395,16 +333,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"title\": \"House Wiring\",\n  \"description\": \"Electrical wiring and maintenance services\",\n  \"price\": 2500,\n  \"categoryId\": \"{{categoryId}}\"\n}"
+              "raw": "{\n  \"title\": \"House Wiring\",\n  \"description\": \"Electrical wiring and maintenance services\",\n  \"price\": \"2500.00\",\n  \"categoryId\": \"b1ad824d-674c-43ff-a15f-ed322178f166\",\n  \"technicianId\": \"94e72216-4bd9-4e86-89c6-f431ebde0bc6\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/service",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "service"
-              ]
+              "raw": "http://localhost:5000/api/service",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "service"]
             }
           },
           "response": []
@@ -425,17 +361,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"price\": 3000\n}"
+              "raw": "{\n  \"price\": \"3000.00\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/service/{{serviceId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "service",
-                "{{serviceId}}"
-              ]
+              "raw": "http://localhost:5000/api/service/1df9af53-70c3-4685-97d7-eb2cc66a142c",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "service", "1df9af53-70c3-4685-97d7-eb2cc66a142c"]
             }
           },
           "response": []
@@ -451,14 +384,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/service/{{serviceId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "service",
-                "{{serviceId}}"
-              ]
+              "raw": "http://localhost:5000/api/service/1df9af53-70c3-4685-97d7-eb2cc66a142c",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "service", "1df9af53-70c3-4685-97d7-eb2cc66a142c"]
             }
           },
           "response": []
@@ -474,31 +404,26 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/technician",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "technician"
-              ]
+              "raw": "http://localhost:5000/api/technician",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "technician"]
             }
           },
           "response": []
         },
         {
-          "name": "Get Technician by ID",
+          "name": "Get Technician by ID (Mohammad Ali)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/technician/{{technicianId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "technician",
-                "{{technicianId}}"
-              ]
+              "raw": "http://localhost:5000/api/technician/94e72216-4bd9-4e86-89c6-f431ebde0bc6",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "technician", "94e72216-4bd9-4e86-89c6-f431ebde0bc6"]
             }
           },
           "response": []
@@ -522,14 +447,11 @@
               "raw": "{\n  \"bio\": \"Experienced electrician and handyman.\",\n  \"experience\": 4,\n  \"location\": \"Dhaka\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/technician/profile",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "technician",
-                "profile"
-              ]
+              "raw": "http://localhost:5000/api/technician/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "technician", "profile"]
             }
           },
           "response": []
@@ -553,14 +475,11 @@
               "raw": "{\n  \"experience\": 5,\n  \"location\": \"Dhaka, Bangladesh\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/technician/profile",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "technician",
-                "profile"
-              ]
+              "raw": "http://localhost:5000/api/technician/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "technician", "profile"]
             }
           },
           "response": []
@@ -586,16 +505,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"serviceId\": \"{{serviceId}}\",\n  \"bookingDate\": \"2026-08-10T10:00:00.000Z\"\n}"
+              "raw": "{\n  \"serviceId\": \"1df9af53-70c3-4685-97d7-eb2cc66a142c\",\n  \"bookingDate\": \"2026-08-10T10:00:00.000Z\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/booking",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "booking"
-              ]
+              "raw": "http://localhost:5000/api/booking",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "booking"]
             }
           },
           "response": []
@@ -611,13 +528,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/booking",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "booking"
-              ]
+              "raw": "http://localhost:5000/api/booking",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "booking"]
             }
           },
           "response": []
@@ -633,14 +548,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/booking/{{bookingId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "booking",
-                "{{bookingId}}"
-              ]
+              "raw": "http://localhost:5000/api/booking/3fe231c3-7661-49ae-86cf-b2fa3ae65835",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "booking", "3fe231c3-7661-49ae-86cf-b2fa3ae65835"]
             }
           },
           "response": []
@@ -664,14 +576,11 @@
               "raw": "{\n  \"status\": \"ACCEPTED\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/booking/{{bookingId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "booking",
-                "{{bookingId}}"
-              ]
+              "raw": "http://localhost:5000/api/booking/3fe231c3-7661-49ae-86cf-b2fa3ae65835",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "booking", "3fe231c3-7661-49ae-86cf-b2fa3ae65835"]
             }
           },
           "response": []
@@ -697,17 +606,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"bookingId\": \"{{bookingId}}\"\n}"
+              "raw": "{\n  \"bookingId\": \"3fe231c3-7661-49ae-86cf-b2fa3ae65835\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/payment/create",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "payment",
-                "create"
-              ]
+              "raw": "http://localhost:5000/api/payment/create",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "payment", "create"]
             }
           },
           "response": []
@@ -728,17 +634,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"sessionId\": \"{{sessionId}}\"\n}"
+              "raw": "{\n  \"sessionId\": \"\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/payment/confirm",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "payment",
-                "confirm"
-              ]
+              "raw": "http://localhost:5000/api/payment/confirm",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "payment", "confirm"]
             }
           },
           "response": []
@@ -754,13 +657,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/payment",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "payment"
-              ]
+              "raw": "http://localhost:5000/api/payment",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "payment"]
             }
           },
           "response": []
@@ -776,14 +677,11 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/payment/{{paymentId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "payment",
-                "{{paymentId}}"
-              ]
+              "raw": "http://localhost:5000/api/payment/c712b326-f9e6-4529-98fe-8139a53cc306",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "payment", "c712b326-f9e6-4529-98fe-8139a53cc306"]
             }
           },
           "response": []
@@ -799,13 +697,11 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/review",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "review"
-              ]
+              "raw": "http://localhost:5000/api/review",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "review"]
             }
           },
           "response": []
@@ -826,16 +722,14 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"bookingId\": \"{{bookingId}}\",\n  \"rating\": 5,\n  \"comment\": \"Excellent work, very professional.\"\n}"
+              "raw": "{\n  \"bookingId\": \"3fe231c3-7661-49ae-86cf-b2fa3ae65835\",\n  \"rating\": 5,\n  \"comment\": \"Excellent work, very professional.\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/review",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "review"
-              ]
+              "raw": "http://localhost:5000/api/review",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "review"]
             }
           },
           "response": []
@@ -859,14 +753,11 @@
               "raw": "{\n  \"rating\": 4,\n  \"comment\": \"Great work, but arrival time was slightly delayed.\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/review/{{reviewId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "review",
-                "{{reviewId}}"
-              ]
+              "raw": "http://localhost:5000/api/review/03f3cf57-0314-4f0a-a623-b5a728805064",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "review", "03f3cf57-0314-4f0a-a623-b5a728805064"]
             }
           },
           "response": []
@@ -887,20 +778,17 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/admin/bookings",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "admin",
-                "bookings"
-              ]
+              "raw": "http://localhost:5000/api/admin/bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "bookings"]
             }
           },
           "response": []
         },
         {
-          "name": "Update User Status",
+          "name": "Update User Status (Ban Admin)",
           "request": {
             "method": "PATCH",
             "header": [
@@ -918,15 +806,11 @@
               "raw": "{\n  \"status\": \"BANNED\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/admin/users/{{userId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "admin",
-                "users",
-                "{{userId}}"
-              ]
+              "raw": "http://localhost:5000/api/admin/users/d23d9cb3-c631-4deb-bc41-b71fc816d70e",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "users", "d23d9cb3-c631-4deb-bc41-b71fc816d70e"]
             }
           },
           "response": []
@@ -939,65 +823,15 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:5000/api"
-    },
-    {
-      "key": "accessToken",
-      "value": ""
-    },
-    {
-      "key": "categoryId",
-      "value": ""
-    },
-    {
-      "key": "serviceId",
-      "value": ""
-    },
-    {
-      "key": "bookingId",
-      "value": ""
-    },
-    {
-      "key": "sessionId",
-      "value": ""
-    },
-    {
-      "key": "reviewId",
-      "value": ""
-    },
-    {
-      "key": "paymentId",
-      "value": ""
-    },
-    {
-      "key": "technicianId",
-      "value": ""
-    },
-    {
-      "key": "userId",
-      "value": ""
     }
   ]
 }
