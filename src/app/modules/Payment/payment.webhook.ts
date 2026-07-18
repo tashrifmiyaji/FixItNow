@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 
-import stripe from "../../lib/stripe";
-import prisma from "../../lib/prisma";
-import dotEnv from "../../config/dotEnv";
+import stripe from "../../lib/stripe.js";
+import prisma from "../../lib/prisma.js";
+import dotEnv from "../../config/dotEnv.js";
 
 import {
 	BookingStatus,
 	PaymentStatus,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma/enums.js";
 
 
 const handleStripeWebhook = async (

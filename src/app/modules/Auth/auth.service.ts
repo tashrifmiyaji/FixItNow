@@ -1,15 +1,15 @@
 import bcrypt from "bcryptjs";
 import httpStatus from "http-status";
 
-import prisma from "../../lib/prisma";
-import dotEnv from "../../config/dotEnv";
-import AppError from "../../errors/AppError";
-import { jwtHelpers } from "../../utils/jwt";
+import prisma from "../../lib/prisma.js";
+import dotEnv from "../../config/dotEnv.js";
+import AppError from "../../errors/AppError.js";
+import { jwtHelpers } from "../../utils/jwt.js";
 
-import { UserStatus } from "../../../../generated/prisma/enums";
+import { UserStatus } from "../../../../generated/prisma/enums.js";
 
 import { ILoginUser, IRegisterUser } from "./auth.interface";
-import { IJwtPayload } from "../../interfaces/jwt.interface";
+import { IJwtPayload } from "../../interfaces/jwt.interface.js";
 
 const registerUser = async (payload: IRegisterUser) => {
 	const isUserExists = await prisma.user.findUnique({

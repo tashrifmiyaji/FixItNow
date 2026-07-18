@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 import dotEnv from "../config/dotEnv";
 import { jwtHelpers } from "../utils/jwt";
 
-import { UserRole, UserStatus } from "../../../generated/prisma/enums";
+import { UserRole, UserStatus } from "../../../generated/prisma/enums.js";
 
 const auth =
 	(...requiredRoles: UserRole[]) =>

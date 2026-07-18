@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 
 import dotEnv from "./app/config/dotEnv";
 
-import routers from "./app/routes";
+import routers from "./app/routes/index";
 import paymentWebhookRoute from "./app/routes/payment.webhook.route";
 
 import globalErrorHandler from "./app/errors/globalErrorHandler";

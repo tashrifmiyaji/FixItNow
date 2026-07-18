@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import httpStatus from "http-status";
 
 import AppError from "../errors/AppError";
-import { UserRole } from "../../../generated/prisma/enums";
+import { UserRole } from "../../../generated/prisma/enums.js";
 
 const authorize = (...roles: UserRole[]): RequestHandler => {
 	return (req, res, next) => {

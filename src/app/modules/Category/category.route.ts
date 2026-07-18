@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import auth from "../../middlewares/auth";
-import validateRequest from "../../middlewares/validateRequest";
+import auth from "../../middlewares/auth.js";
+import validateRequest from "../../middlewares/validateRequest.js";
 
 import { CategoryController } from "./category.controller";
 import { CategoryValidation } from "./category.validation";
 
-import { UserRole } from "../../../../generated/prisma/enums";
+import { UserRole } from "../../../../generated/prisma/enums.js";
 
 const router = Router();
 

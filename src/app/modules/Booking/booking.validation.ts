@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { BookingStatus } from "../../../../generated/prisma/enums";
+import { BookingStatus } from "../../../../generated/prisma/enums.js";
 
 const createBookingValidationSchema = z.object({
 	body: z.object({

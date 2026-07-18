@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
 
-import prisma from "../../lib/prisma";
-import AppError from "../../errors/AppError";
+import prisma from "../../lib/prisma.js";
+import AppError from "../../errors/AppError.js";
 
-import { BookingStatus, UserRole } from "../../../../generated/prisma/enums";
+import { BookingStatus, UserRole } from "../../../../generated/prisma/enums.js";
 
 import {
 	ICreateBooking,

@@ -1,15 +1,15 @@
 import httpStatus from "http-status";
 
-import prisma from "../../lib/prisma";
-import stripe from "../../lib/stripe";
-import dotEnv from "../../config/dotEnv";
-import AppError from "../../errors/AppError";
+import prisma from "../../lib/prisma.js";
+import stripe from "../../lib/stripe.js";
+import dotEnv from "../../config/dotEnv.js";
+import AppError from "../../errors/AppError.js";
 
 import {
 	BookingStatus,
 	PaymentProvider,
 	PaymentStatus,
-} from "../../../../generated/prisma/enums";
+} from "../../../../generated/prisma/enums.js";
 
 import { IGetPaymentsQuery } from "./payment.interface";
 

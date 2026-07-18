@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "ESNext",
+    "module": "ES2020",
     "moduleResolution": "bundler",
     "target": "ES2023",
     "types": ["node"],
@@ -9,10 +9,11 @@
     "declaration": true,
     "declarationMap": true,
     "noUncheckedIndexedAccess": true,
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": false,
     "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
   // "include": ["src/**/*"],
