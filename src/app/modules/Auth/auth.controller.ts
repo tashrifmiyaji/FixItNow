@@ -27,6 +27,12 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 		sameSite: "lax",
 	});
 
+	res.cookie("accessToken", result.accessToken, {
+		httpOnly: true,
+		secure: dotEnv.node_env === "production",
+		sameSite: "lax",
+	});
+
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
 		success: true,

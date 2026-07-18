@@ -3,10 +3,7 @@ import httpStatus from "http-status";
 import prisma from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 
-import {
-	BookingStatus,
-	UserRole,
-} from "../../../../generated/prisma/enums";
+import { BookingStatus, UserRole } from "../../../../generated/prisma/enums";
 
 import {
 	ICreateBooking,
@@ -14,10 +11,7 @@ import {
 	IUpdateBookingStatus,
 } from "./booking.interface";
 
-const createBooking = async (
-	userId: string,
-	payload: ICreateBooking,
-) => {
+const createBooking = async (userId: string, payload: ICreateBooking) => {
 	const service = await prisma.service.findUnique({
 		where: {
 			id: payload.serviceId,
@@ -25,10 +19,7 @@ const createBooking = async (
 	});
 
 	if (!service) {
-		throw new AppError(
-			httpStatus.NOT_FOUND,
-			"Service not found.",
-		);
+		throw new AppError(httpStatus.NOT_FOUND, "Service not found.");
 	}
 
 	const booking = await prisma.booking.create({
@@ -39,10 +30,18 @@ const createBooking = async (
 			bookingDate: payload.bookingDate,
 		},
 		include: {
-			customer: true,
+			customer: {
+				omit: {
+					password: true,
+				},
+			},
 			technician: {
 				include: {
-					user: true,
+					user: {
+						omit: {
+							password: true,
+						},
+					},
 				},
 			},
 			service: true,
@@ -113,8 +112,7 @@ const getMyBookings = async (
 				review: true,
 			},
 			orderBy: {
-				[query.sortBy || "createdAt"]:
-					query.sortOrder || "desc",
+				[query.sortBy || "createdAt"]: query.sortOrder || "desc",
 			},
 		}),
 
@@ -134,11 +132,7 @@ const getMyBookings = async (
 	};
 };
 
-const getBookingById = async (
-	userId: string,
-	role: UserRole,
-	id: string,
-) => {
+const getBookingById = async (userId: string, role: UserRole, id: string) => {
 	const technician = await prisma.technicianProfile.findUnique({
 		where: {
 			userId,
@@ -156,12 +150,10 @@ const getBookingById = async (
 				{
 					customerId: userId,
 				},
-				...(role === UserRole.TECHNICIAN &&
-				technician
+				...(role === UserRole.TECHNICIAN && technician
 					? [
 							{
-								technicianId:
-									technician.id,
+								technicianId: technician.id,
 							},
 						]
 					: []),
@@ -181,10 +173,7 @@ const getBookingById = async (
 	});
 
 	if (!booking) {
-		throw new AppError(
-			httpStatus.NOT_FOUND,
-			"Booking not found.",
-		);
+		throw new AppError(httpStatus.NOT_FOUND, "Booking not found.");
 	}
 
 	return booking;
@@ -195,12 +184,11 @@ const updateBookingStatus = async (
 	id: string,
 	payload: IUpdateBookingStatus,
 ) => {
-	const technician =
-		await prisma.technicianProfile.findUnique({
-			where: {
-				userId,
-			},
-		});
+	const technician = await prisma.technicianProfile.findUnique({
+		where: {
+			userId,
+		},
+	});
 
 	if (!technician) {
 		throw new AppError(
@@ -217,10 +205,7 @@ const updateBookingStatus = async (
 	});
 
 	if (!booking) {
-		throw new AppError(
-			httpStatus.NOT_FOUND,
-			"Booking not found.",
-		);
+		throw new AppError(httpStatus.NOT_FOUND, "Booking not found.");
 	}
 
 	if (

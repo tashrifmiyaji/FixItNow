@@ -6,34 +6,22 @@ import AppError from "../errors/AppError";
 import dotEnv from "../config/dotEnv";
 import { jwtHelpers } from "../utils/jwt";
 
-import {
-	UserRole,
-	UserStatus,
-} from "../../../generated/prisma/enums";
+import { UserRole, UserStatus } from "../../../generated/prisma/enums";
 
 const auth =
 	(...requiredRoles: UserRole[]) =>
-	async (
-		req: Request,
-		res: Response,
-		next: NextFunction,
-	) => {
+	async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const authorization = req.headers.authorization;
-
-			if (!authorization) {
-				throw new AppError(
-					httpStatus.UNAUTHORIZED,
-					"Unauthorized access.",
-				);
-			}
-
-			const token = authorization.split(" ")[1];
+			const token = req.cookies.accessToken
+				? req.cookies.accessToken
+				: req.headers.authorization?.startsWith("Bearer")
+					? req.headers.authorization?.split(" ")[1]
+					: req.headers.authorization;
 
 			if (!token) {
 				throw new AppError(
 					httpStatus.UNAUTHORIZED,
-					"Unauthorized access.",
+					"You are mey be not login, please login.",
 				);
 			}
 
