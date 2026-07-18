@@ -1,4 +1,4 @@
-import app from "./app";
+import app from "./appMain";
 import dotEnv from "./app/config/dotEnv";
 import prisma from "./app/lib/prisma";
 
