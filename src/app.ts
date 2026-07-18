@@ -1,8 +1,12 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import dotEnv from "./app/config/dotEnv";
+
 import routers from "./app/routes";
+import paymentWebhookRoute from "./app/routes/payment.webhook.route";
+
 import globalErrorHandler from "./app/errors/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
 
@@ -15,16 +19,28 @@ app.use(
 	}),
 );
 
+app.use("/api/payments/webhook", paymentWebhookRoute);
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+	express.urlencoded({
+		extended: true,
+	}),
+);
 app.use(cookieParser());
 
-// routes
+// Server test route
 app.get("/", (req: Request, res: Response) => {
 	res.send("hello world!");
-}); // server test routes
-app.use("/api", routers); // all routes
-app.use(notFound); // 404 handle
-app.use(globalErrorHandler); // global error handler
+});
+
+// Application routes
+app.use("/api", routers);
+
+// 404 Handler
+app.use(notFound);
+
+// Global Error Handler
+app.use(globalErrorHandler);
 
 export default app;

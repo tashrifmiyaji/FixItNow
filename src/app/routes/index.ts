@@ -8,6 +8,7 @@ import technicianRoutes from "../modules/Technician/technician.route";
 import bookingRoutes from "../modules/Booking/booking.route";
 import adminRoutes from "../modules/Admin/admin.route";
 import reviewRoutes from "../modules/Review/review.route";
+import paymentRoutes from "../modules/Payment/payment.route";
 
 const routers = Router();
 
@@ -19,5 +20,6 @@ routers.use("/technician", technicianRoutes);
 routers.use("/booking", bookingRoutes);
 routers.use("/admin", adminRoutes);
 routers.use("/review", reviewRoutes);
+routers.use("/payment", paymentRoutes);
 
 export default routers;
