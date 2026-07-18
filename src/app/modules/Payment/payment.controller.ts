@@ -52,8 +52,24 @@ const getPaymentById = catchAsync(async (req: Request, res: Response) => {
 	});
 });
 
+const confirmPayment = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user!
+	const result = await PaymentService.confirmPayment(
+		user.userId,
+		req.body.sessionId,
+	);
+
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Payment confirmed successfully.",
+		data: result,
+	});
+});
+
 export const PaymentController = {
 	createPayment,
+	confirmPayment,
 	getMyPayments,
 	getPaymentById,
 };

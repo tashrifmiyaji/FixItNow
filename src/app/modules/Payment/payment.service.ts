@@ -195,8 +195,93 @@ const getPaymentById = async (
 	return payment;
 };
 
+const confirmPayment = async (
+	userId: string,
+	sessionId: string,
+) => {
+	const session = await stripe.checkout.sessions.retrieve(sessionId, {
+		expand: ["payment_intent"],
+	});
+
+	if (!session || session.payment_status !== "paid") {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Payment session is not completed.",
+		);
+	}
+
+	const paymentId = session.metadata?.paymentId;
+	const bookingId = session.metadata?.bookingId;
+
+	if (!paymentId || !bookingId) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Payment metadata is missing.",
+		);
+	}
+
+	const payment = await prisma.payment.findUnique({
+		where: {
+			id: paymentId,
+		},
+		include: {
+			booking: true,
+		},
+	});
+
+	if (!payment) {
+		throw new AppError(
+			httpStatus.NOT_FOUND,
+			"Payment not found.",
+		);
+	}
+
+	if (payment.booking.customerId !== userId) {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"You are not authorized to confirm this payment.",
+		);
+	}
+
+	if (payment.status === PaymentStatus.COMPLETED) {
+		return payment;
+	}
+
+	const paymentIntentId =
+		typeof session.payment_intent === "string"
+			? session.payment_intent
+			: session.payment_intent?.id;
+
+	const updatedPayment = await prisma.$transaction(async (tx) => {
+		const updated = await tx.payment.update({
+			where: {
+				id: paymentId,
+			},
+			data: {
+				status: PaymentStatus.COMPLETED,
+				transactionId: paymentIntentId ?? session.id,
+				paidAt: new Date(),
+			},
+		});
+
+		await tx.booking.update({
+			where: {
+				id: bookingId,
+			},
+			data: {
+				status: BookingStatus.PAID,
+			},
+		});
+
+		return updated;
+	});
+
+	return updatedPayment;
+};
+
 export const PaymentService = {
 	createPayment,
+	confirmPayment,
 	getMyPayments,
 	getPaymentById,
 };

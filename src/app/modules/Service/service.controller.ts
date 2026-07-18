@@ -9,7 +9,7 @@ import { ServiceService } from "./service.service";
 const createService = catchAsync(async (req: Request, res: Response) => {
     const user = req.user!
 	const result = await ServiceService.createService(
-		user.use,
+		user.userId,
 		req.body,
 	);
 

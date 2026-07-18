@@ -19,7 +19,8 @@ app.use(
 	}),
 );
 
-app.use("/api/payments/webhook", paymentWebhookRoute);
+const rawBodyParser = express.raw({ type: "application/json" });
+app.use("/api/payments/webhook", rawBodyParser, paymentWebhookRoute);
 
 app.use(express.json());
 app.use(
